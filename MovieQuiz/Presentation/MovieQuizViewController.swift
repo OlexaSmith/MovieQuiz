@@ -4,12 +4,17 @@ final class MovieQuizViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 20
         let currentQuestion = questions[currentQuestionIndex]
         let viewModel = convert(model: currentQuestion)
         show(quiz: viewModel)
     }
     
     private func show(quiz step: QuizStepViewModel) {
+        imageView.layer.borderWidth = 0
+        yesButton.isEnabled = true
+        noButton.isEnabled = true
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
@@ -117,13 +122,19 @@ final class MovieQuizViewController: UIViewController {
             show(quiz: viewModel)
         }
     }
+    @IBOutlet private var yesButton: UIButton!
+    @IBOutlet private var noButton: UIButton!
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = true
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = false
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
