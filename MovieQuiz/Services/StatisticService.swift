@@ -9,7 +9,7 @@ import Foundation
 final class StatisticService: StatisticServiceProtocol {
     private let storage = UserDefaults.standard
     private enum Keys: String {
-       case gamesCount
+        case gamesCount
         case bestGameCorrect
         case bestGameTotal
         case bestGameDate
@@ -20,17 +20,21 @@ final class StatisticService: StatisticServiceProtocol {
         get { storage.integer(forKey: Keys.gamesCount.rawValue) }
         set { storage.set(newValue, forKey: Keys.gamesCount.rawValue) }
     }
+    var totalQuestionsAsked: Int {
+        get { storage.integer(forKey: Keys.totalQuestionsAsked.rawValue) }
+        set { storage.set(newValue, forKey: Keys.totalQuestionsAsked.rawValue) }
+    }
     var totalAccuracy: Double {
         let correct = storage.integer(forKey: Keys.totalCorrectAnswer.rawValue)
         let questionsAsked = storage.integer(forKey: Keys.totalQuestionsAsked.rawValue)
         guard questionsAsked > 0 else { return 0 }
-        return Double(correct) / Double(questionsAsked * 10) * 100
+        return Double(correct) / Double(questionsAsked) * 100
     }
     var bestGame: GameResult {
         get {
             let correct = storage.integer(forKey: Keys.bestGameCorrect.rawValue)
             let total = storage.integer(forKey: Keys.bestGameTotal.rawValue)
-                                        let date = storage.object(forKey: Keys.bestGameDate.rawValue) as? Date ?? Date()
+            let date = storage.object(forKey: Keys.bestGameDate.rawValue) as? Date ?? Date()
             return GameResult(correct: correct, total: total, date: date)
         }
         set {
@@ -50,4 +54,4 @@ final class StatisticService: StatisticServiceProtocol {
             bestGame = newGameResult
         }
     }
-    }
+}
