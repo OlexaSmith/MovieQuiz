@@ -69,17 +69,15 @@ final class  MovieQuizViewController: UIViewController, QuestionFactoryDelegate 
                                message: message,
                                buttonText: "Попробовать еще раз") { [weak self] in
             guard let self = self else { return }
-            self.restartGame()
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
-            
-            self.questionFactory?.loadData()
+            self.resetGameState()
             self.showLoadingIndicator()
-        }
+            self.questionFactory?.loadData()
+      }
         
         alertPresenter.show(in: self, model: model)
     }
-    
     private func show(quiz step: QuizStepViewModel) {
         imageView.layer.borderWidth = 0
         yesButton.isEnabled = true
@@ -91,15 +89,17 @@ final class  MovieQuizViewController: UIViewController, QuestionFactoryDelegate 
     private func show(quiz result: QuizResultsViewModel) {
         let model = AlertModel(title: result.title, message: result.text, buttonText: result.buttonText, completion: { [weak self] in
             guard let self else { return }
-            
             self.restartGame()
         }
         )
         alertPresenter.show(in: self, model: model)
     }
-    private func restartGame() {
+    private func resetGameState() {
         currentQuestionIndex = 0
         correctAnswers = 0
+    }
+    private func restartGame() {
+        resetGameState()
         questionFactory?.requestNextQuestion()
     }
     
@@ -141,7 +141,6 @@ final class  MovieQuizViewController: UIViewController, QuestionFactoryDelegate 
             show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
-            
             questionFactory?.requestNextQuestion()
         }
     }
