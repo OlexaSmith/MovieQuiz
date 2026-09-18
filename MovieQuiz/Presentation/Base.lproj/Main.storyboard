@@ -40,6 +40,7 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="1/10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SlB-xP-P7y" userLabel="Index Label">
                                                 <rect key="frame" x="314" y="0.0" width="36" height="23.666666666666668"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Index"/>
                                                 <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
                                                 <color key="textColor" name="YPWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -49,6 +50,7 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="gLb-vM-lqd" userLabel="Preview image">
                                         <rect key="frame" x="0.0" y="43.666666666666686" width="350" height="525"/>
                                         <color key="backgroundColor" name="YPWhite"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Poster"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="gLb-vM-lqd" secondAttribute="height" multiplier="2:3" id="FXc-xE-2X5"/>
                                         </constraints>
@@ -65,6 +67,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XAQ-d5-zbM" userLabel="No Button">
                                                 <rect key="frame" x="0.0" y="0.0" width="165" height="60"/>
                                                 <color key="backgroundColor" name="YPWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="No"/>
                                                 <color key="tintColor" name="YPBlack"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal">
@@ -82,12 +85,13 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cC4-2I-Bch"/>
+                                                    <action selector="noButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EdL-QH-XGy"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lzq-15-M7D" userLabel="Yes Button">
                                                 <rect key="frame" x="185" y="0.0" width="165" height="60"/>
                                                 <color key="backgroundColor" name="YPWhite"/>
+                                                <accessibility key="accessibilityConfiguration" identifier="Yes"/>
                                                 <color key="tintColor" name="YPBlack"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                 <state key="normal" title="Button">
@@ -133,9 +137,9 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="mP5-Kl-0Wn" id="LcE-xE-46E"/>
-                        <outlet property="counterLabel" destination="SlB-xP-P7y" id="l3P-FW-fTY"/>
+                        <outlet property="counterLabel" destination="SlB-xP-P7y" id="b1q-jb-xKO"/>
                         <outlet property="imageView" destination="gLb-vM-lqd" id="UUk-dW-FQB"/>
-                        <outlet property="noButton" destination="XAQ-d5-zbM" id="83x-cv-QJN"/>
+                        <outlet property="noButton" destination="XAQ-d5-zbM" id="kfm-Mv-ZG2"/>
                         <outlet property="textLabel" destination="WMc-lM-o8k" id="1Kk-b6-2tE"/>
                         <outlet property="yesButton" destination="lzq-15-M7D" id="DqU-aK-Yyw"/>
                     </connections>

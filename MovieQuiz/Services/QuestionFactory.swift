@@ -33,7 +33,7 @@ class QuestionFactory: QuestionFactoryProtocol {
     }
     private func convert(model: MostPopularMovie) -> QuizQuestion? {
         guard let imageData = try? Data(contentsOf: model.imageURL) else { return nil }
-        let rating = Float(model.rating) ?? 0
+        let rating = model.rating
         return QuizQuestion(image: imageData, text: "Рейтинг этого фильма больше чем 7?", correctAnswer: rating > 7)
     }
     func requestNextQuestion() {
@@ -48,14 +48,14 @@ class QuestionFactory: QuestionFactoryProtocol {
             do {
                 imageData = try Data(contentsOf: movie.resizedImageURL)
             } catch {
-               DispatchQueue.main.async { [weak self] in
+                DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                   self.delegate?.didFailToLoadData(with: error)
+                    self.delegate?.didFailToLoadData(with: error)
                 }
                 return
             }
             
-            let rating = Float(movie.rating) ?? 0
+            let rating = movie.rating
             let text = "Рейтинг этого фильма больше чем 7?"
             let correctAnswer = rating > 7
             
