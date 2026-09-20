@@ -11,14 +11,20 @@ import XCTest
 final class MovieQuizPresenterTests: XCTestCase {
     func testPresenterConvertModel() throws {
         let viewControllerMock = MovieQuizViewControllerMock()
-        let sut = MovieQuizPresenter(viewController: viewControllerMock)
+        let sut = MovieQuizPresenter(viewController: viewControllerMock, statisticService: StatisticService(), questionFactory: QuestionFactory(moviesLoader: MoviesLoader(), delegate: nil))
         
         let emptyData = Data()
         let question = QuizQuestion(image: emptyData, text: "Question Text", correctAnswer: true)
-        let viewModel = sut.convert(model: question)
+        sut.didReceiveNextQuestion(question: question)
+        let expectation = XCTestExpectation(description: "Wait for show(quiz:) call")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 2)
+        
         
         XCTAssertEqual(viewControllerMock.lastStepModel?.image, emptyData)
-        XCTAssertEqual(viewModel.question, "Question Text")
-        XCTAssertEqual(viewModel.questionNumber, "1/10")
+        XCTAssertEqual(viewControllerMock.lastStepModel?.question, "Question Text")
+        XCTAssertEqual(viewControllerMock.lastStepModel?.questionNumber, "1/10")
     }
 }

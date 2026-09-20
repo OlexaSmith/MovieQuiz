@@ -18,7 +18,9 @@ final class  MovieQuizViewController: UIViewController, MovieQuizViewControllerP
         super.viewDidLoad()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 20
-        presenter = MovieQuizPresenter(viewController: self)
+        let StatisticService = StatisticService()
+        let questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: nil)
+        presenter = MovieQuizPresenter(viewController: self, statisticService: StatisticService, questionFactory: questionFactory)
         showLoadingIndicator()
     }
     
@@ -85,15 +87,11 @@ final class  MovieQuizViewController: UIViewController, MovieQuizViewControllerP
     }
     
     func highlightImageBorder(isCorrectAnswer: Bool) {
-        presenter.didAnswer(isCorrectAnswer: isCorrectAnswer)
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrectAnswer ? UIColor(named: "YPGreen")? .cgColor : UIColor(named: "YPRed")? .cgColor
         imageView.layer.cornerRadius = 20
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            guard let self = self else {return}
-            self.presenter.showNextQuestionOrResults()
-        }
+      
     }
 }
 
